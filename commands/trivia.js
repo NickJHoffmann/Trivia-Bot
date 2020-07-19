@@ -3,25 +3,21 @@ const _ = require('underscore');
 const axios = require('axios');
 const fs = require("fs");
 
-const {trivia_categories} = require('../trivia/info/categories.json');
+const {trivia_categories, custom_categories} = require('../trivia/info/categories.json');
 
-let catData = '```\nAll\n';
+let catData = '```\n';
 for (const cat of trivia_categories) {
-    catData += (cat.name + '\n');
+    let s = cat.totalQuestions===1 ? '' : 's';
+    catData += `${cat.name} - ${cat.totalQuestions} question${s}\n`;
 }
 catData += '```\n'
 
-
-//Get the names of all local topic files
-const localTopics = fs.readdirSync('./trivia').filter(file => file.endsWith('.json'));
-localTopics.forEach((name, i) => {
-    name = name.substr(0, name.length-5);
-    name = name.charAt(0).toUpperCase() + name.substr(1);
-    localTopics[i] = name;
-});
-if (localTopics.length > 0) {
+if ((custom_categories) && custom_categories.length > 0) {
     catData += "Custom Topics:\n```\n";
-    localTopics.forEach(topic => catData += `${topic}\n`);
+    for (const customCat of custom_categories) {
+        let s = customCat.totalQuestions===1 ? '' : 's';
+        catData += `${customCat.name} - ${customCat.totalQuestions} question${s}\n`;
+    }
     catData += "```";
 }
 
@@ -76,7 +72,6 @@ module.exports = {
                 if (e instanceof TooManyQuestions) return message.channel.send(e.message);
                 return message.channel.send("Cannot find that topic");
             }
-
         }
 
         //Error to call when stopping the game before all questions have been asked

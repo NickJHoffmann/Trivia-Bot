@@ -9,7 +9,7 @@ async function getData(url) {
         console.log(e);
     }
 }
-async function doThings() {
+async function APICategories() {
     let categories = await getData('https://opentdb.com/api_category.php');
     for (let i = 0; i < categories['trivia_categories'].length; i++) {
         const currentCat = categories['trivia_categories'][i].name;
@@ -28,6 +28,16 @@ async function doThings() {
 
     categories['trivia_categories'].push({"name": "All", 'totalQuestions': qAmounts['overall']['total_num_of_questions']});
 
+    const localTopics = fs.readdirSync('../trivia').filter(file => file.endsWith('.json'));
+    const arr = [];
+    for (const topic of localTopics) {
+        const data = require(`../trivia/${topic}`);
+        let name = topic.substr(0, topic.length-5);
+        name = name.charAt(0).toUpperCase() + name.substr(1);
+        arr.push({"name":name, "totalQuestions":data['results'].length});
+    }
+    categories['custom_categories'] = arr;
+
     fs.writeFile('../trivia/info/categories.json', JSON.stringify(categories), err => {
         if (err) {
             console.log('Error writing file', err);
@@ -37,6 +47,4 @@ async function doThings() {
     });
 }
 
-doThings().catch(e => {
-    console.log(e);
-});
+APICategories().catch(e => console.log(e));
