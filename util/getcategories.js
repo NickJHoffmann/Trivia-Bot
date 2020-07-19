@@ -12,7 +12,9 @@ async function getData(url) {
 async function APICategories() {
     let categories = await getData('https://opentdb.com/api_category.php');
     for (let i = 0; i < categories['trivia_categories'].length; i++) {
-        const currentCat = categories['trivia_categories'][i].name;
+        let currentCat = categories['trivia_categories'][i].name;
+        currentCat = currentCat.replace(/ /g, '_');
+        categories['trivia_categories'][i].name = currentCat;
         for (let j = 0; j < currentCat.length; j++) {
             if (currentCat[j] === ':') {
                 categories['trivia_categories'][i].name = currentCat.substr(j + 2);

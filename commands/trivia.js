@@ -91,9 +91,8 @@ module.exports = {
             let specificCategory = false;
             if (category !== 'all') {
                 for (const cat of trivia_categories) {
-                    if (cat.name.toLowerCase() === category) {
+                    if (cat.name.toLowerCase() === category.toLowerCase()) {
                         url += `category=${cat.id}&`;
-                        console.log(cat.totalQuestions);
                         if (num > cat.totalQuestions) throw new TooManyQuestions("Database does not have that many questions for that topic");
                         specificCategory = true;
                         break;
