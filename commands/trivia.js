@@ -23,6 +23,7 @@ if ((custom_categories) && custom_categories.length > 0) {
 
 module.exports = {
     name: 'trivia',
+    aliases: ['t'],
     description: 'Start a game of trivia',
     extendedDescription: "Starts a game of trivia with the specified topic and the specified amount of questions. " +
         "Defaults to `All` and `25` questions long.\n" +
@@ -109,6 +110,7 @@ module.exports = {
             if (category !== 'all' && !specificCategory) throw new Error();
 
             let amountPrefix = specificCategory ? '&' : '';
+            await triviaChannel.send("Getting trivia questions...");
             if (num > 50) {
                 let rawData = [];
                 let sessionToken = (await getAPIData('https://opentdb.com/api_token.php?command=request&'))['token'];

@@ -5,6 +5,61 @@
          "correct_answer": [
             "Clovis Bray"
          ]
+      },
+      {
+         "question": "What was Savathun's name at birth?",
+         "correct_answer": [
+            "Sathona"
+         ]
+      },
+      {
+         "question": "Who is Crota's father?",
+         "correct_answer": [
+            "Oryx"
+         ]
+      },
+      {
+         "question": "Which faction's colors are primarily red, white, and gold?",
+         "correct_answer": [
+            "New Monarchy"
+         ]
+      },
+      {
+         "question": "What is the name of the Queen's Emissary in the Reef?",
+         "correct_answer": [
+            "Petra Venj"
+         ]
+      },
+      {
+         "question": "Where did that wizard come from?",
+         "correct_answer": [
+            "The Moon"
+         ]
+      },
+      {
+         "question": "What is the name of the Scorned Baron, The Machinist?",
+         "correct_answer": [
+            "Elykris"
+         ]
+      },
+      {
+         "question": "What substance does the Fallen rely on servitors to create for them?",
+         "correct_answer": [
+            "Ether"
+         ]
+      },
+      {
+         "question": "Which Vex group was responsible for converting Nessus into a machine world?",
+         "correct_answer": [
+            "Sol Collective"
+         ]
+      },
+      {
+         "question": "What kind of enemy is the Devoted of Nokris?",
+         "correct_answer": [
+            "Wizard",
+            "Hive Wizard"
+         ]
       }
    ]
 }
