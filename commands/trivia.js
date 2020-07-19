@@ -33,7 +33,7 @@ module.exports = {
         `Current topics are: ${catData}`,
     usage: "<topic> <number of questions>",
     async execute(message, args) {
-        const timePerQuestion = 10;      //In seconds
+        const timePerQuestion = 5;      //In seconds
         const questionsBeforeEnd = 5;    //Number of questions that dont receive answers before automatically stopping the game
         const stopPhrase = 'STOP THINE QUESTIONS';
 
@@ -51,6 +51,14 @@ module.exports = {
         let trivia = {};
         let thumbURL = undefined;
 
+        //Error to call when input number of questions exceeds amount in database
+        class TooManyQuestions extends Error {
+            constructor(message) {
+                super(message);
+                this.name = "TooManyQuestions";
+            }
+        }
+
         //Parse args to get the topic and number of questions
         try {
             numQuestions = args[1] ? parseInt(args[1]) : 25;
@@ -65,12 +73,11 @@ module.exports = {
             try {
                 questionOrder = await getTriviaQuestions(topic, numQuestions);
             } catch (e) {
-                //console.log(e);
+                if (e instanceof TooManyQuestions) return message.channel.send(e.message);
                 return message.channel.send("Cannot find that topic");
             }
 
         }
-
 
         //Error to call when stopping the game before all questions have been asked
         class StopGame extends Error {
@@ -80,42 +87,57 @@ module.exports = {
             }
         }
 
+
+
         //Gets data from the OpenTriviaDB API
         async function getTriviaQuestions(category, num) {
             let url = 'https://opentdb.com/api.php?encode=base64&';
             let specificCategory = false;
             if (category !== 'all') {
-                console.log(trivia_categories);
+                //console.log(trivia_categories);
                 for (const cat of trivia_categories) {
                     if (cat.name.toLowerCase() === category) {
                         url += `category=${cat.id}&`;
-                        console.log(cat.id);
+                        console.log(cat.totalQuestions);
+                        if (num > cat.totalQuestions) throw new TooManyQuestions("Database does not have that many questions for that topic");
+                        //console.log(cat.id);
                         specificCategory = true;
                         break;
                     }
                 }
+            } else {
+                if (num > trivia_categories[trivia_categories.length-1].totalQuestions) {
+                    throw new TooManyQuestions("Database does not have that many questions for that topic");
+                }
             }
+
             if (category !== 'all' && !specificCategory) throw new Error();
+
             let amountPrefix = specificCategory ? '&' : '';
             if (num > 50) {
                 let rawData = [];
-                let sessionToken = await getAPIData('https://opentdb.com/api_token.php?command=request&');
+                let sessionToken = (await getAPIData('https://opentdb.com/api_token.php?command=request&'))['token'];
                 for (let i=0; i < Math.ceil(num/50); i++) {
                     let numRemaining = num-(50*i);
-                    rawData.concat((await getAPIData(`${url}${amountPrefix}amount=${numRemaining}&token=${sessionToken}`))['results']);
+                    rawData = rawData.concat((await getAPIData(`${url}${amountPrefix}amount=${numRemaining}&token=${sessionToken}`))['results']);
                 }
-                return rawData;
+                return decodeBase64APIResult(rawData);
             } else {
                 url += `${amountPrefix}amount=${num}`;
                 let data = (await getAPIData(url))['results'];
-                for (let i=0; i<data.length; i++) {
-                    let buff = new Buffer(data[i]['question'], 'base64');
-                    data[i]['question'] = buff.toString('ascii');
-                    buff = new Buffer(data[i]['correct_answer'], 'base64');
-                    data[i]['correct_answer'] = buff.toString('ascii');
-                }
-                return data;
+                return decodeBase64APIResult(data);
             }
+        }
+
+        //Decodes "Question" and "Correct_Answer" fields of API data array
+        function decodeBase64APIResult(data) {
+            for (let i=0; i<data.length; i++) {
+                let buff = new Buffer(data[i]['question'], 'base64');
+                data[i]['question'] = buff.toString('ascii');
+                buff = new Buffer(data[i]['correct_answer'], 'base64');
+                data[i]['correct_answer'] = buff.toString('ascii');
+            }
+            return data;
         }
 
         //Get data from API. Returns parsed JSON
