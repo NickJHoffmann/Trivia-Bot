@@ -30,7 +30,7 @@ module.exports = {
         `Current topics are: ${catData}`,
     usage: "<topic> <number of questions>",
     async execute(message, args) {
-        const timePerQuestion = 5;      //In seconds
+        const timePerQuestion = 10;      //In seconds
         const questionsBeforeEnd = 5;    //Number of questions that dont receive answers before automatically stopping the game
         const stopPhrase = 'STOP THINE QUESTIONS';
 
@@ -90,13 +90,11 @@ module.exports = {
             let url = 'https://opentdb.com/api.php?encode=base64&';
             let specificCategory = false;
             if (category !== 'all') {
-                //console.log(trivia_categories);
                 for (const cat of trivia_categories) {
                     if (cat.name.toLowerCase() === category) {
                         url += `category=${cat.id}&`;
                         console.log(cat.totalQuestions);
                         if (num > cat.totalQuestions) throw new TooManyQuestions("Database does not have that many questions for that topic");
-                        //console.log(cat.id);
                         specificCategory = true;
                         break;
                     }
@@ -152,8 +150,6 @@ module.exports = {
             const scoreSheet = new Discord.MessageEmbed()
                 .setTitle("Final Scores")
                 .setColor(0x3b8c2e);
-                //.setThumbnail(thumbURL);
-                //.setDescription(`Maximum Possible Points: ${questionOrder.length}`);
             if (thumbURL) scoreSheet.setThumbnail(thumbURL);
             let desc = "";
             scores.sort((v1, v2) => v2-v1);
@@ -200,7 +196,6 @@ module.exports = {
 
         async function triviaQuestion(q) {
             let question = q['question'];
-            //console.log(question);
             let correctAnswers = q['correct_answer'];
             if (!(correctAnswers instanceof Array)) {
                 correctAnswers = Array.of(correctAnswers);
