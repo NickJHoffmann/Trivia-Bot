@@ -1,6 +1,7 @@
 const Discord = require('discord.js');
 const _ = require('underscore');
 const axios = require('axios');
+const fs = require("fs");
 
 const {trivia_categories} = require('../trivia/info/categories.json');
 
@@ -10,7 +11,19 @@ for (const cat of trivia_categories) {
 }
 catData += '```\n'
 
-const localTopics = fs.readdirSync('../trivia').filter(file => file.endsWith('.js'));
+
+//Get the names of all local topic files
+const localTopics = fs.readdirSync('./trivia').filter(file => file.endsWith('.json'));
+localTopics.forEach((name, i) => {
+    name = name.substr(0, name.length-5);
+    name = name.charAt(0).toUpperCase() + name.substr(1);
+    localTopics[i] = name;
+});
+if (localTopics.length > 0) {
+    catData += "Custom Topics:\n```\n";
+    localTopics.forEach(topic => catData += `${topic}\n`);
+    catData += "```";
+}
 
 module.exports = {
     name: 'trivia',
@@ -168,8 +181,7 @@ module.exports = {
 
         async function triviaQuestion(q) {
             let question = q['question'];
-            //he.decode(question);
-            console.log(question);
+            //console.log(question);
             let correctAnswers = q['correct_answer'];
             if (!(correctAnswers instanceof Array)) {
                 correctAnswers = Array.of(correctAnswers);
@@ -197,7 +209,7 @@ module.exports = {
                     if (!(correct instanceof Array)) {
                         correct = Array.of(correct);
                     }
-                    triviaChannel.send(`Time's up! The correct answer was \`${correct}\``);
+                    triviaChannel.send(`Time's up! The correct answer was \`${correct[0]}\``);
                 });
             }
         } catch (e) {
