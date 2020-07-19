@@ -1,0 +1,130 @@
+{
+   "results": [
+      {
+         "question": "What is the only mob that can break obsidian?",
+         "correct_answer": [
+            "Wither"
+         ]
+      },
+      {
+         "question": "How big is the typical stack?",
+         "correct_answer": [
+            "64"
+         ]
+      },
+      {
+         "question": "What is the default player skin called?",
+         "correct_answer": [
+            "Steve"
+         ]
+      },
+      {
+         "question": "What block is found at the bottom of the overworld and cannot be broken?",
+         "correct_answer": [
+            "Bedrock"
+         ]
+      },
+      {
+         "question": "How many slots are there in the player inventory?",
+         "correct_answer": [
+            "36"
+         ]
+      },
+      {
+         "question": "What do you get when you put nether wart into a brewing stand with water bottles?",
+         "correct_answer": [
+            "Awkward Potion"
+         ]
+      },
+      {
+         "question": "What do you get when you add golden carrots to an awkward potion?",
+         "correct_answer": [
+            "Night Vision Potion",
+            "potion of night vision"
+         ]
+      },
+      {
+         "question": "What projectile is harmless to all mobs except the blaze?",
+         "correct_answer": [
+            "Snowball"
+         ]
+      },
+      {
+         "question": "What mob, except for bosses, has the most health?",
+         "correct_answer": [
+            "Iron Golem"
+         ]
+      },
+      {
+         "question": "What heals the ender dragon?",
+         "correct_answer": [
+            "End Crystal",
+            "Ender Crystal",
+            "End Crystals",
+            "Ender Crystals"
+         ]
+      },
+      {
+         "question": "What effect do you receive from eating pufferfish?",
+         "correct_answer": [
+            "Poison"
+         ]
+      },
+      {
+         "question": "What do you use to tame wolves?",
+         "correct_answer": [
+            "Bone",
+            "Bones"
+         ]
+      },
+      {
+         "question": "What do you use to tame cats?",
+         "correct_answer": [
+            "Fish"
+         ]
+      },
+      {
+         "question": "What is the main drop from the wither boss?",
+         "correct_answer": [
+            "Nether Star"
+         ]
+      },
+      {
+         "question": "What do you need to craft chainmail?",
+         "correct_answer": [
+            "Fire"
+         ]
+      },
+      {
+         "question": "How many ticks are in one second?",
+         "correct_answer": [
+            "20"
+         ]
+      },
+      {
+         "question": "How many redstone ticks are in one second?",
+         "correct_answer": [
+            "10"
+         ]
+      },
+      {
+         "question": "How many full hearts does the wither boss have?",
+         "correct_answer": [
+            "150"
+         ]
+      },
+      {
+         "question": "What mob is typically passive but has a small chance to spawn hostile?",
+         "correct_answer": [
+            "Rabbit",
+            "Bunny"
+         ]
+      },
+      {
+         "question": "What year did Minecraft officially release?",
+         "correct_answer": [
+            "2011"
+         ]
+      }
+   ]
+}
