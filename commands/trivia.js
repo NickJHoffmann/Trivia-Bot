@@ -2,14 +2,15 @@ const Discord = require('discord.js');
 const _ = require('underscore');
 const axios = require('axios');
 
-const {trivia_categories} = require('../trivia/categories.json');
+const {trivia_categories} = require('../trivia/info/categories.json');
 
 let catData = '```\nAll\n';
 for (const cat of trivia_categories) {
     catData += (cat.name + '\n');
 }
-catData += '```'
+catData += '```\n'
 
+const localTopics = fs.readdirSync('../trivia').filter(file => file.endsWith('.js'));
 
 module.exports = {
     name: 'trivia',
@@ -42,20 +43,20 @@ module.exports = {
             numQuestions = args[1] ? parseInt(args[1]) : 25;
         } catch (error) {
             return message.channel.send("Invalid number of questions");
-        };
+        }
         try {
             trivia = require(`../trivia/${topic}.json`);
             questionOrder = _.sample(trivia['results'], Math.min(numQuestions, trivia['results'].length));
-            thumbURL = require('../trivia/logos.json')[topic];
+            thumbURL = require('../trivia/info/logos.json')[topic];
         } catch (error) {
             try {
                 questionOrder = await getTriviaQuestions(topic, numQuestions);
             } catch (e) {
-                console.log(e);
+                //console.log(e);
                 return message.channel.send("Cannot find that topic");
-            };
+            }
 
-        };
+        }
 
 
         //Error to call when stopping the game before all questions have been asked
@@ -64,21 +65,24 @@ module.exports = {
                 super(message);
                 this.name = "StopGame";
             }
-        };
+        }
 
         //Gets data from the OpenTriviaDB API
         async function getTriviaQuestions(category, num) {
-            let url = 'https://opentdb.com/api.php?encode=base64';
-            let specificCategory = true;
+            let url = 'https://opentdb.com/api.php?encode=base64&';
+            let specificCategory = false;
             if (category !== 'all') {
+                console.log(trivia_categories);
                 for (const cat of trivia_categories) {
                     if (cat.name.toLowerCase() === category) {
                         url += `category=${cat.id}&`;
+                        console.log(cat.id);
                         specificCategory = true;
                         break;
                     }
                 }
             }
+            if (category !== 'all' && !specificCategory) throw new Error();
             let amountPrefix = specificCategory ? '&' : '';
             if (num > 50) {
                 let rawData = [];
@@ -99,7 +103,7 @@ module.exports = {
                 }
                 return data;
             }
-        };
+        }
 
         //Get data from API. Returns parsed JSON
          async function getAPIData(url) {
@@ -109,7 +113,7 @@ module.exports = {
              } catch (e) {
                  console.log(e);
              }
-         };
+         }
 
         //Helper function to make a final score sheet, to be called whenever the game ends for any reason
         function makeScoreSheet(dispMessage = "Game Over!") {
@@ -134,7 +138,7 @@ module.exports = {
             }
             scoreSheet.addField("Unanswered", totalBlanks, true);
             return message.channel.send(dispMessage, scoreSheet);
-        };
+        }
 
 
         async function waitFor(correctAnswers) {
@@ -148,7 +152,7 @@ module.exports = {
                     time: timePerQuestion * 1000,
                     errors: ['time']
                 });
-        };
+        }
 
         async function awardPoints(ans) {
             let pointWinner = ans.guild.member(ans.author);
@@ -160,7 +164,7 @@ module.exports = {
                 scores.set(pointWinner, 1);
             }
             return ans;
-        };
+        }
 
         async function triviaQuestion(q) {
             let question = q['question'];
@@ -169,7 +173,7 @@ module.exports = {
             let correctAnswers = q['correct_answer'];
             if (!(correctAnswers instanceof Array)) {
                 correctAnswers = Array.of(correctAnswers);
-            };
+            }
             await message.channel.send(`----------------\n${question}`);
             try {
                 let ans = (await waitFor(correctAnswers)).first();
@@ -177,8 +181,8 @@ module.exports = {
                 let newAns = await awardPoints(ans);
             } catch (e) {
                 throw e;
-            };
-        };
+            }
+        }
 
         try {
             for (const q of questionOrder) {
@@ -192,14 +196,14 @@ module.exports = {
                     let correct = q['correct_answer'];
                     if (!(correct instanceof Array)) {
                         correct = Array.of(correct);
-                    };
+                    }
                     triviaChannel.send(`Time's up! The correct answer was \`${correct}\``);
                 });
             }
         } catch (e) {
             makeScoreSheet(e.message);
             return;
-        };
+        }
         makeScoreSheet();
     }
 }
