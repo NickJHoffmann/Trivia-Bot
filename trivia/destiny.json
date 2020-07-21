@@ -60,6 +60,166 @@
             "Wizard",
             "Hive Wizard"
          ]
+      },
+      {
+         "question": "Which legendary SMG is shown here? https://i.imgur.com/QX0FskS.jpg",
+         "correct_answer": [
+            "Hard Truths"
+         ]
+      },
+      {
+         "question": "What fireteam did Rekkana belong to?",
+         "correct_answer": [
+            "Kentarch 3"
+         ]
+      },
+      {
+         "question": "What is the original name of the Fallen race?",
+         "correct_answer": [
+            "Eliksni"
+         ]
+      },
+      {
+         "question": "What planet did the Hive come from?",
+         "correct_answer": [
+            "Fundament"
+         ]
+      },
+      {
+         "question": "True or False: https://i.imgur.com/EMawqeh.png",
+         "correct_answer": [
+            "True"
+         ]
+      },
+      {
+         "question": "How many moons does Fundament have?",
+         "correct_answer": [
+            "52"
+         ]
+      },
+      {
+         "question": "Who is the Kell of the House of Light?",
+         "correct_answer": [
+            "Mithrax"
+         ]
+      },
+      {
+         "question": "True or False? Eriana-3 and Saint-14 were on the same fireteam",
+         "correct_answer": [
+            "False"
+         ]
+      },
+      {
+         "question": "Which Fallen House preserves the legacy of the House of Rain?",
+         "correct_answer": [
+            "Judgement",
+            "House of Judgement"
+         ]
+      },
+      {
+         "question": "What Vex faction does the Sancified Mind belong to?",
+         "correct_answer": [
+            "Sol Divisive"
+         ]
+      },
+      {
+         "question": "Who developed SIVA?",
+         "correct_answer": [
+            "Clovis Bray"
+         ]
+      },
+      {
+         "question": "What is SIVA also known as in-universe?",
+         "correct_answer": [
+            "Ironsbane"
+         ]
+      },
+      {
+         "question": "What class was Dredgen Yor when he was a guardian?",
+         "correct_answer": [
+            "Titan"
+         ]
+      },
+      {
+         "question": "Who is the Heir Apparent?",
+         "correct_answer": [
+            "Caiatl"
+         ]
+      },
+      {
+         "question": "The Two Tailed Fox and The Jade Rabbit belong to which weapons manufacturer?",
+         "correct_answer": [
+            "Daito"
+         ]
+      },
+      {
+         "question": "The Chaperone and The Last Word belong to which weapons manufacturer?",
+         "correct_answer": [
+            "Tex Mechanica"
+         ]
+      },
+      {
+         "question": "Hard Light and Tlacloc belong to which weapons manufacturer?",
+         "correct_answer": [
+            "Omolon"
+         ]
+      },
+      {
+         "question": "What is the true name of the Emissary of the Nine?",
+         "correct_answer": [
+            "Orin"
+         ]
+      },
+      {
+         "question": "Which animal is prominently featured on the Gjallarhorn Rocket Launcher?",
+         "correct_answer": [
+            "Wolf",
+            "Wolves"
+         ]
+      },
+      {
+         "question": "Who is Besurith's father?",
+         "correct_answer": [
+            "Crota"
+         ]
+      },
+      {
+         "question": "Who did Cayde-6 hold on to a House of Exile banner to remember?",
+         "correct_answer": [
+            "Exile Baroness"
+         ]
+      },
+      {
+         "question": "What is 687 Tinette?",
+         "correct_answer": [
+            "An asteroid",
+            "Asteroid"
+         ]
+      },
+      {
+         "question": "What was Ada-1's full birth name?",
+         "correct_answer": [
+            "Adelaide Meyrin"
+         ]
+      },
+      {
+         "question": "Who was Ada-1's mother?",
+         "correct_answer": [
+            "Henriette Meyrin"
+         ]
+      },
+      {
+         "question": "Where was the battle Fortuna Plummet fought?",
+         "correct_answer": [
+            "19 Fortuna"
+         ]
+      },
+      {
+         "question": "What house do Queenbreaker Vandals belong to?",
+         "correct_answer": [
+            "House of Wolves",
+            "Wolves"
+         ]
       }
    ]
 }
