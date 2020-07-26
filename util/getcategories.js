@@ -49,4 +49,7 @@ async function APICategories() {
     });
 }
 
+
 APICategories().catch(e => console.log(e));
+
+module.exports.getCategories = APICategories;
